@@ -276,7 +276,7 @@ def populate_test_platform(platform):
     s4.set_as_default()
 
 
-def make_dantzig(mp, solve=False):
+def make_dantzig(mp, scheme='dantzig-gams', solve=False):
     """Return :class:`ixmp.Scenario` of Dantzig's canning/transport problem.
 
     Parameters
@@ -304,7 +304,7 @@ def make_dantzig(mp, solve=False):
     # method to populate it
     annot = "Dantzig's transportation problem for illustration and testing"
     scen = Scenario(mp, **models['dantzig'], version='new', annotation=annot,
-                    scheme='dantzig', with_data=True)
+                    scheme=scheme, with_data=True)
 
     # commit the scenario
     scen.commit("Import Dantzig's transport problem for testing.")
@@ -314,7 +314,7 @@ def make_dantzig(mp, solve=False):
 
     if solve:
         # Solve the model using the GAMS code provided in the `tests` folder
-        scen.solve(model='dantzig', case='transport_standard')
+        scen.solve(model=scheme, case='transport_standard')
 
     # add timeseries data for testing `clone(keep_solution=False)`
     # and `remove_solution()`

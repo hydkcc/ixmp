@@ -28,6 +28,12 @@ def test_GAMSModel(test_mp, test_data_path, kwargs):
     s.solve(model='dantzig', **kwargs)
 
 
+def test_PyomoModel(test_mp):
+    """Pyomo version of the Dantzig model builds and solves."""
+    s = make_dantzig(test_mp, scheme='dantzig-pyomo')
+    s.solve(model='dantzig-pyomo')
+
+
 def test_model_initialize(test_mp, caplog):
     # Model.initialize runs on an empty Scenario
     s = make_dantzig(test_mp)
